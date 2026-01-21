@@ -1,0 +1,17 @@
+{
+    "name": "premium-mod-server",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "scripts": {
+        "start": "node index.js",
+        "dev": "node index.js"
+    },
+    "dependencies": {
+        "@libsql/client": "^0.14.0",
+        "cloudinary": "^2.8.0",
+        "cors": "^2.8.5",
+        "dotenv": "^16.6.1",
+        "express": "^4.22.1"
+    }
+}

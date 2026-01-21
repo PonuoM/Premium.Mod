@@ -1,0 +1,11 @@
+/* Thai Font - Kanit (loaded from Google Fonts) */
+
+/* Apply Kanit font to Thai text */
+:lang(th),
+[lang="th"],
+.font-thai {
+    font-family: 'Kanit', sans-serif !important;
+}
+
+/* The font will automatically apply to Thai characters when using Manrope or Noto Serif
+   because Kanit is set as fallback in tailwind config */

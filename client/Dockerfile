@@ -27,4 +27,4 @@ RUN npm install -g serve
 COPY --from=builder /app/dist ./dist
 
 # Start the app using the PORT environment variable provided by Railway
-CMD serve -s dist -l $PORT
+CMD ["sh", "-c", "serve -s dist -l ${PORT:-3000}"]

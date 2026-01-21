@@ -9,4 +9,4 @@ cmds = ["npm run build"]
 cacheDirectories = []
 
 [start]
-cmd = "npm run start"
+cmd = "serve dist -s -l $PORT"

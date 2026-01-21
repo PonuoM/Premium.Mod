@@ -3,28 +3,25 @@ FROM node:22-alpine AS builder
 
 WORKDIR /app
 
-# Copy dependency definitions
 COPY package.json package-lock.json ./
-
-# Install dependencies
 RUN npm install --legacy-peer-deps
 
-# Copy source code
 COPY . .
-
-# Build the app
 RUN npm run build
 
-# Production Stage
-FROM node:22-alpine AS runner
+# Production Stage - Use Nginx
+FROM nginx:alpine
 
-WORKDIR /app
+WORKDIR /usr/share/nginx/html
 
-# Install serve to run the static site
-RUN npm install -g serve
+# Clear default nginx static files
+RUN rm -rf ./*
 
 # Copy built assets from builder stage
-COPY --from=builder /app/dist ./dist
+COPY --from=builder /app/dist .
 
-# Start the app using the PORT environment variable provided by Railway
-CMD ["sh", "-c", "serve -s dist -l ${PORT:-3000}"]
+# Copy nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+
+# Script to replace PORT_PLACEHOLDER with real PORT and start nginx
+CMD ["/bin/sh", "-c", "sed -i \"s/PORT_PLACEHOLDER/${PORT:-3000}/g\" /etc/nginx/conf.d/default.conf && nginx -g \"daemon off;\""]
